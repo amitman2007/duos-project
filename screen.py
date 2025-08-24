@@ -1,74 +1,50 @@
-# import conts
-# #פתיחת חלון ראשי
-
 import pygame
-pygame.init()
-screen = pygame.display.set_mode((1250, 750))
-clock = pygame.time.Clock()
-running = True
+from consts import main_screen,GRID_COLOR ,MINES_GRID_ROW, BOARD_LENGTH, BOARD_WIDTH, MINES_GRID_LINES_COLOR,MINES_GRID_COL
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+# from soldier import soldier_image, Soldier
+#
+#
+# def draw_window(soldier1):
+#     main_screen.fill(GRID_COLOR)
+#     main_screen.blit(Soldier,(soldier1.x,soldier1.y))
+#     pygame.display.update()
 
-    from conts import GRID_COLOR
-    screen.fill(GRID_COLOR)
-
-    pygame.display.flip()
-    clock.tick(60)
-
-pygame.quit()
-#ניסוי
-
-from conts import GRID_LINES_COLOR
-pygame.draw.line(screen,GRID_LINES_COLOR , x , y)
+# def draw_grass(mine):
+#     main_screen.fill(GRID_COLOR)
+#     main_screen.blit(mine,(mine1))
+#     pygame.display.update()
 
 
-#םתיחת חלון מוקשים
-# Example file showing a basic pygame "game loop"
-import pygame
+def enter (pressed):
+    enter_pressed = False
+    if pressed[pygame.K_KP_ENTER]:
+      enter_pressed = True
+    return enter_pressed
 
-# pygame setup
-pygame.init()
-screen = pygame.display.set_mode((1250, 750))
-clock = pygame.time.Clock()
-running = True
-
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    # fill the screen with a color to wipe away anything from last frame
-    from conts import MINES_GRID_COLOR
-    screen.fill(MINES_GRID_COLOR)
-
-    # RENDER YOUR GAME HERE
-
-    # flip() the display to put your work on screen
-    pygame.display.flip()
-
-    clock.tick(60)  # limits FPS to 60
-
-pygame.quit()
+if enter () :
+    pygame.init()
+    size = (BOARD_WIDTH,BOARD_LENGTH)  # Width, Height
+    screen = pygame.display.set_mode(size)
+    pygame.display.set_caption("My Pygame mines Window")
+    screen.fill((255, 255, 255))
+    cord_list = []
 
 
-#מטריצת המשחק
-from conts import MATRIX_ROW,MATRIX_COL , MATRIX
-ind = [30,25]
-for row in range(MATRIX_ROW):
-    new_row =[]
-    for col in range(MATRIX_COL):
-        ind[row][col][0]+= 30
-        ind[row][col][1]+= 25
-        new_row.append(ind)
-    MATRIX.append(new_row)
-print(MATRIX)
+    x= 0
+    y=25
+    for i in range(MINES_GRID_ROW):
+        cord_list.append((x,y))
+        x = x+25
+        y=y+25
+    x2 = 0
+    y2 = 50
 
+    for i in range(MINES_GRID_COL):
 
+        cord_list.append((x,y))
+        x2 = x+25
+        y2=y+25
 
-
+    pygame.draw.lines(screen,MINES_GRID_LINES_COLOR ,  False,cord_list)
+    pygame.display.update()
 
